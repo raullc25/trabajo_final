@@ -4,11 +4,13 @@ public class Pez {
 
 	private String nombre;
 	private double peso;
+	private Pescador pescador;
 	
 	
-	public Pez(String nombre, double peso) {
+	public Pez(String nombre, double peso, Pescador pescador) {
 		this.nombre = nombre;
-		this.peso = peso;	
+		this.peso = peso;
+		this.pescador = pescador;
 	}	
 	
 	
@@ -28,6 +30,11 @@ public class Pez {
 		this.peso=peso;
 	}
 	
+	public Pescador getPescador() {
+		return pescador;
+	}
+	
+
 
 	
 	
