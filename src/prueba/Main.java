@@ -1,220 +1,187 @@
 package prueba;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
-
-class Pez {
-    private String nombre;
-    private double peso;
-
-    public Pez(String nombre, double peso) {
-        this.nombre = nombre;
-        this.peso = peso;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public double getPeso() {
-        return peso;
-    }
-}
-
-class Pescador {
-    private String nombre;
-    private List<Pez> listaPeces;
-
-    public Pescador(String nombre) {
-        this.nombre = nombre;
-        this.listaPeces = new ArrayList<>();
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void agregarPez(String nombrePez, double peso) {
-        Pez pez = new Pez(nombrePez, peso);
-        listaPeces.add(pez);
-        System.out.println("Se agregó el pez " + nombrePez + " al pescador " + nombre);
-    }
-
-    public void eliminarPez(String nombrePez) {
-        Iterator<Pez> iterator = listaPeces.iterator();
-        while (iterator.hasNext()) {
-            Pez pez = iterator.next();
-            if (pez.getNombre().equals(nombrePez)) {
-                iterator.remove();
-                System.out.println("Se eliminó el pez " + nombrePez + " del pescador " + nombre);
-                return;
-            }
-        }
-        System.out.println("No se encontró el pez " + nombrePez + " en la lista del pescador " + nombre);
-    }
-
-    public void mostrarPeces() {
-        if (listaPeces.isEmpty()) {
-            System.out.println("El pescador " + nombre + " no tiene peces en su lista.");
-        } else {
-            System.out.println("Lista de peces del pescador " + nombre + ":");
-            for (Pez pez : listaPeces) {
-                System.out.println("Nombre: " + pez.getNombre() + ", Peso: " + pez.getPeso());
-            }
-        }
-    }
-}
-
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Main {
-    private static List<Pescador> listaPescadores = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        mostrarMenu();
-    }
+	private static Scanner sc = new Scanner(System.in);
+	private static ArrayList<Pescador> pescadores = new ArrayList<>();
+	
+	
+	
+	 public static void agregarPescador() {
+	        System.out.print("Ingrese el nombre del pescador: ");
+	        String nombrePescador = sc.nextLine();
+	        Pescador pescador = new Pescador(nombrePescador);
+	        pescadores.add(pescador);
+	        System.out.println("Se agregó el pescador " + nombrePescador + " correctamente.");
+	    }
+	
+	 public static void mostrarPescadores() {
+	        if (pescadores.isEmpty()) {
+	            System.out.println("No hay pescadores en la lista.");
+	        } else {
+	            System.out.println("Lista de pescadores:");
+	            for (Pescador pescador : pescadores) {
+	                System.out.println("- " + pescador.getNombre());
+	            }
+	        }
+	    }
+	 
+	 
+	 public static void agregarpez() {
+		 
+		 if(pescadores.isEmpty()) {
+			 System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
+			 return;
+		 }
+		 
+		 System.out.println("Ingrese el nombre del pescador: ");
+		 String nompesca = sc.nextLine();
+		 
+		 Pescador pescadorselec = null;
+		 for(Pescador pescador : pescadores) {
+			 if(pescador.getNombre().equals(pescadorselec)) {
+				 pescadorselec = pescador;
+				 break;
+			 }
+		 }
+		 
+		 if(pescadorselec==null) {
+			 System.out.println("No se encontró el pescador " + nompesca + " en la lista.");
+	            return;
+		 }
+		 
+		 	System.out.print("Ingrese el nombre del pez: ");
+	        String nombrePez = sc.nextLine();
+	        System.out.print("Ingrese el peso del pez: ");
+	        double pesoPez = sc.nextDouble();
+	        
+	        pescadorselec.anadirpez(nombrePez, pesoPez); 
+	 }
+	 
+	 
+	 public static void eliminarpezpesc() {
+	        if (pescadores.isEmpty()) {
+	            System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
+	            return;
+	        }
+	        
+	        System.out.print("Ingrese el nombre del pescador: ");
+	        String nombrePescador = sc.nextLine();
 
-    private static void mostrarMenu() {
-        int opcion;
-        do {
-            System.out.println("----- CRUD de Pescadores y Peces -----");
-            System.out.println("1. Agregar pescador");
-            System.out.println("2. Mostrar pescadores");
-            System.out.println("3. Agregar pez a pescador");
-            System.out.println("4. Eliminar pez de pescador");
-            System.out.println("5. Mostrar peces de pescador");
-            System.out.println("6. Salir");
-            System.out.print("Ingrese una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
+	        Pescador pescadorSeleccionado = null;
+	        for (Pescador pescador : pescadores) {
+	            if (pescador.getNombre().equals(nombrePescador)) {
+	                pescadorSeleccionado = pescador;
+	                break;
+	            }
+	        }
 
-            switch (opcion) {
-                case 1:
-                    agregarPescador();
-                    break;
-                case 2:
-                    mostrarPescadores();
-                    break;
-                case 3:
-                    agregarPezAPescador();
-                    break;
-                case 4:
-                    eliminarPezDePescador();
-                    break;
-                case 5:
-                    mostrarPecesDePescador();
-                    break;
-                case 6:
-                    System.out.println("¡Hasta luego!");
-                    break;
-                default:
-                    System.out.println("Opción inválida. Por favor, ingrese una opción válida.");
-                    break;
-            }
-            System.out.println();
-        } while (opcion != 6);
-    }
+	        if (pescadorSeleccionado == null) {
+	            System.out.println("No se encontró el pescador " + nombrePescador + " en la lista.");
+	            return;
+	        }
 
-    private static void agregarPescador() {
-        System.out.print("Ingrese el nombre del pescador: ");
-        String nombrePescador = scanner.nextLine();
-        Pescador pescador = new Pescador(nombrePescador);
-        listaPescadores.add(pescador);
-        System.out.println("Se agregó el pescador " + nombrePescador + " correctamente.");
-    }
+	        System.out.print("Ingrese el nombre del pez a eliminar: ");
+	        String nombrePez = sc.nextLine();
 
-    private static void mostrarPescadores() {
-        if (listaPescadores.isEmpty()) {
-            System.out.println("No hay pescadores en la lista.");
-        } else {
-            System.out.println("Lista de pescadores:");
-            for (Pescador pescador : listaPescadores) {
-                System.out.println("- " + pescador.getNombre());
-            }
-        }
-    }
+	        pescadorSeleccionado.eliminarpez(nombrePez);
+	        
+	    }
+	 
+	 public static void mostrarPecesDePescador() {
+	        if (pescadores.isEmpty()) {
+	            System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
+	            return;
+	        }
+	 
+	        System.out.print("Ingrese el nombre del pescador: ");
+	        String nombrePescador = sc.nextLine();
 
-    private static void agregarPezAPescador() {
-        if (listaPescadores.isEmpty()) {
-            System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
-            return;
-        }
+	        Pescador pescadorSeleccionado = null;
+	        for (Pescador pescador : pescadores) {
+	            if (pescador.getNombre().equals(nombrePescador)) {
+	                pescadorSeleccionado = pescador;
+	                break;
+	            }
+	        }
 
-        System.out.print("Ingrese el nombre del pescador: ");
-        String nombrePescador = scanner.nextLine();
+	        if (pescadorSeleccionado == null) {
+	            System.out.println("No se encontró el pescador " + nombrePescador + " en la lista.");
+	            return;
+	        }
 
-        Pescador pescadorSeleccionado = null;
-        for (Pescador pescador : listaPescadores) {
-            if (pescador.getNombre().equals(nombrePescador)) {
-                pescadorSeleccionado = pescador;
-                break;
-            }
-        }
+	        pescadorSeleccionado.mostrarpeces();
+	    }
+	 
+	 
+	 public static void eliminarlist() {
+			if(pescadores.isEmpty()) {
+				System.out.println("La lista ya se encuentra vacia");
+			}else {
+				System.out.println("Borrar todos los datos? (si, no)");
+				String confirm=sc.next();
+				if(confirm.toLowerCase().equals("si")){
+					pescadores.clear();
+					System.out.println("Lista borrada");
+				}else {
+					System.out.println("Proceso cancelado");
+				}
+				
+			}
+		}
+	 
+	 
+	 public void guardarfic() {
+			System.out.println("Dime el nombre del archivo");
+			String arch=sc.next();
+			System.out.print("La ruta donde se ha guardado el archivo es en: ");
+			System.out.println("C:\\Ficheros\\" + arch+".txt");
+			
+			try (FileWriter archivo = new FileWriter("C:\\Ficheros\\trabajo_final\\" + arch +".txt")){
 
-        if (pescadorSeleccionado == null) {
-            System.out.println("No se encontró el pescador " + nombrePescador + " en la lista.");
-            return;
-        }
+				for(Pescador pescador : pescadores) {
+					archivo.write("La especie es "+ pescador.getNombre() + " y el peso \r\n");
 
-        System.out.print("Ingrese el nombre del pez: ");
-        String nombrePez = scanner.nextLine();
-        System.out.print("Ingrese el peso del pez: ");
-        double pesoPez = scanner.nextDouble();
-        scanner.nextLine(); // Consumir el salto de línea
+				}
+					
+			}catch (IOException e) {
+				System.out.println("Se produjo la Exception: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		
+		public void leerfich() {
+			
+			
+			
+			System.out.println("Dime el nombre del archivo");
+			String arch=sc.next();
+			System.out.print("Vamos a leer el contenido de: ");
+			System.out.println("C:\\Ficheros\\" + arch+".txt");
+			
+		
+			
+			try (FileReader archivo2=new FileReader("C:\\Ficheros\\trabajo_final\\" + arch +".txt")){
 
-        pescadorSeleccionado.agregarPez(nombrePez, pesoPez);
-    }
-
-    private static void eliminarPezDePescador() {
-        if (listaPescadores.isEmpty()) {
-            System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
-            return;
-        }
-
-        System.out.print("Ingrese el nombre del pescador: ");
-        String nombrePescador = scanner.nextLine();
-
-        Pescador pescadorSeleccionado = null;
-        for (Pescador pescador : listaPescadores) {
-            if (pescador.getNombre().equals(nombrePescador)) {
-                pescadorSeleccionado = pescador;
-                break;
-            }
-        }
-
-        if (pescadorSeleccionado == null) {
-            System.out.println("No se encontró el pescador " + nombrePescador + " en la lista.");
-            return;
-        }
-
-        System.out.print("Ingrese el nombre del pez a eliminar: ");
-        String nombrePez = scanner.nextLine();
-
-        pescadorSeleccionado.eliminarPez(nombrePez);
-    }
-
-    private static void mostrarPecesDePescador() {
-        if (listaPescadores.isEmpty()) {
-            System.out.println("No hay pescadores en la lista. Por favor, agregue un pescador primero.");
-            return;
-        }
-
-        System.out.print("Ingrese el nombre del pescador: ");
-        String nombrePescador = scanner.nextLine();
-
-        Pescador pescadorSeleccionado = null;
-        for (Pescador pescador : listaPescadores) {
-            if (pescador.getNombre().equals(nombrePescador)) {
-                pescadorSeleccionado = pescador;
-                break;
-            }
-        }
-
-        if (pescadorSeleccionado == null) {
-            System.out.println("No se encontró el pescador " + nombrePescador + " en la lista.");
-            return;
-        }
-
-        pescadorSeleccionado.mostrarPeces();
-    }
+				int valor=archivo2.read();
+	            while(valor!=-1){
+	                System.out.print((char)valor);
+	                valor=archivo2.read();
+	            }
+	            
+	            
+				}catch (IOException e) {
+					System.out.println("Se produjo la Exception: " + e.getMessage());
+					e.printStackTrace();
+				}
+		}
+	 
 }
+	 
+	 
+

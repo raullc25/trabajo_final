@@ -1,15 +1,18 @@
-package fin;
+package prueba;
+
 import java.util.Scanner;
 
-public class Menu {
+import fin.Usa_peces;
 
-	public static void main(String[] args) {
+public class Metodos {
+
+public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 
 		int opcion=7;
 		
-		Usa_peces pez = new Usa_peces();
+		Main pez = new Main();
 		
 		
 		do {
@@ -20,16 +23,17 @@ public class Menu {
 			System.out.println("|      GESTION DE PECES      |");
 			System.out.println("|____________________________|");
 			System.out.println("|                               |");
-			System.out.println("|   1. Anadir pescador          |");
+			System.out.println("|   1. Agregar pescador          |");
 			System.out.println("|   2. Mostrar pescador         |");
 			System.out.println("|   3. Anadir pez a un pescador |");
-			System.out.println("|   4. Borrar pez               |");
+			System.out.println("|   4. Eliminar pez a un pescador |");
 			System.out.println("|   5. Borrar lista             |");
-			System.out.println("|   6. Modificar pez            |");
-			System.out.println("|   7. Guardar en un fichero    |");
-			System.out.println("|   8. Leer el fichero       |");
-			System.out.println("|   8. Anadir pescador       |");
-			System.out.println("|   8. Mostrar Pescadores    |");
+			System.out.println("|   6. Guardar en un fichero    |");
+			System.out.println("|   7. Leer el fichero       |");
+			
+			
+			System.out.println("|   . Modificar pez            |");
+			
 			System.out.println("|   0. Salir                 |");
 			System.out.println("|____________________________|");
 			System.out.println("");
@@ -41,60 +45,46 @@ public class Menu {
 				switch(opcion) {
 				case 1:
 					
-					pez.anadirdatos();
+					pez.agregarPescador();
 					
 					break;
 					
 				case 2:
 					
-					pez.mostrar();
+					pez.mostrarPescadores();
 					
 					break;
 				
 				case 3:
 					
-					pez.variosdatos();
+					pez.agregarpez();
 					
 					break;
 				
 				case 4:
 					
-					pez.borrardato();
+					pez.eliminarpezpesc();
 			
 					break;
 					
 				case 5:
 					
-					pez.borrarlista();
-					
+					pez.eliminarlist();
+			
 					break;
-				
+					
 				case 6:
 					
-					pez.modificar();
-					
-					break;
-					
-					
-				case 7:
-						
 					pez.guardarfic();
 					
 					break;
 					
+				case 7:
 					
-				case 8:
 					pez.leerfich();
 					
 					break;
-					
-				case 9:
-					pez.agregarpescador();
-					break;
-					
-				case 10:
-					pez.mostrarpesc();
-					break;
+				
 			
 				
 			default:
@@ -111,6 +101,3 @@ public class Menu {
 	}
 
 }
-
-
-

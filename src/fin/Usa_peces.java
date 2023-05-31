@@ -16,8 +16,6 @@ public class Usa_peces {
 	
 	public void anadirdatos() {
 		
-		System.out.println("Dime el pescador: ");
-		String nompesca=sc.next();
 		
 		System.out.println("Dime la especie: ");
 		String nombre = sc.next();
@@ -25,7 +23,7 @@ public class Usa_peces {
 		System.out.println("Dime el peso: ");
 		Double peso = sc.nextDouble();
 		
-		Pescador pescador = new Pescador(nompesca);
+		
 		Pez pez1 = new Pez(nombre, peso, pescador);
 		
 		listapeces.add(pez1);
