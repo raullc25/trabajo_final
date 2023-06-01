@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"colecciones","l":"Diccionario"},{"p":"colecciones","l":"DiccionarioSinonimos"},{"p":"colecciones","l":"Entrega"},{"p":"colecciones","l":"MiColeccionMenu"},{"p":"colecciones","l":"PruebaColeccion"}];updateSearchResults();
